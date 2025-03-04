@@ -209,14 +209,18 @@ export default function App() {
               setContent((prev) => [...prev, { name: query, value: query }]);
             setQuery("");
             setFilteredSuggestions([]);
-            setFinalResult(
-              evaluate(
-                content
-                  .concat(query.trim() ? [{ name: query, value: query }] : [])
-                  .map((c) => c.value)
-                  .join(" ")
-              )
-            );
+            try {
+              setFinalResult(
+                evaluate(
+                  content
+                    .concat(query.trim() ? [{ name: query, value: query }] : [])
+                    .map((c) => c.value)
+                    .join(" ")
+                )
+              );
+            } catch {
+              setFinalResult("Invalid expression");
+            }
           }}
         />
       </div>
